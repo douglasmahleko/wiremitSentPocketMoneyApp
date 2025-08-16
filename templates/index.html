@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <link href={{url_for("static", filename = "css/bootstrap.min.css")}} rel="stylesheet" >
+    <link href={{url_for("static", filename = "teacher.png")}} rel="shortcut icon" >
+  </head>
+  <body>
+    <div class="container p-4">
+        <div class ="well text-center">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark" >
+                <div class="container-fluid" >
+                    <h1 class="navbar-brand">Bank Application</h1>
+                    <h3 class="navbar-brand">
+                        Please Authenticate
+                    </h3>
+                </div>
+            </nav>
+            {%with messages = get_flashed_messages()%}
+                {%if messages%}
+                {%for message in messages%}
+
+                <div class ="alert alert-success alert-dismissable" role="alert">
+                    {{message}}
+                </div>
+                
+                {%endfor%}
+                {%endif%}
+                {%endwith%}
+        </div>
+        
+    </div>
+    <div class="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
+                    <h4 class=" text-center">LogIn</h4>
+                    <form action="{{url_for('index')}}" method="POST">
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" class="form-control" name="username" required="1" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" class="form-control" name="password" />
+                        </div>
+                        <div class="form-group text-center p-3">
+                            <button type="submit" class="btn btn-primary" >Login</button>
+                            <h3> If you do not have an account click <a href="{{url_for('createAccount')}}">here</a> </h3>
+                        </div>
+                    </form>
+    </div>
+  </body>
+  <script type="text/javascript" src="{{url_for('static', filename="js/jquery-3.7.1.slim.min.js")}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename="js/bootstrap.min.js")}}"></script>
+</html>

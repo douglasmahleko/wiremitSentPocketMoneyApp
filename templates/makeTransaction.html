@@ -1,0 +1,76 @@
+
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <link href={{url_for("static", filename = "css/bootstrap.min.css")}} rel="stylesheet" >
+    <link href={{url_for("static", filename = "teacher.png")}} rel="shortcut icon" >
+  </head>
+  <body>
+    
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark" >
+            <div class="container-fluid" >
+                <h1 class="navbar-brand">Bank Application</h1>
+                <div class="collapse navbar-collapse" >
+                    <ul class="navbar-nav" >
+                        <li class="nav-item" > <a class="nav-link" href="{{url_for('ads')}}">View Ads</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{url_for('viewTransaction')}}">View Transactions</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{url_for('logout')}}">LogOut</a> </li>
+                    </ul>
+                </div>
+                <h3 class="navbar-brand">
+                    Make Transaction - <span>{{user.username}}</span>
+                </h3>
+            </div>
+        </nav>
+    </div>
+                <div class="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
+                    
+                    {%with messages = get_flashed_messages()%}
+                {%if messages%}
+                {%for message in messages%}
+
+                <div class ="alert alert-success alert-dismissable" role="alert">
+                    {{message}}
+                </div>
+                
+                {%endfor%}
+                {%endif%}
+                {%endwith%}
+                    <form action="{{url_for('makeTransaction')}}" method="POST">
+                        <div class ="form-group alert alert-success " role="alert">
+                            <div class="d-inline">
+                                <h3>Transaction rates for different countries:</h3>
+                                {%for i in range(2)%}
+                                    <nav class="navbar navbar-light">
+                                        <div class="container-fluid">
+                                            <a class="navbar-brand" href="#">{{user.eligibleCountriesRates[i]}} FOR {{user.eligibleCountriesCurrency[i]}}.</a>
+                                        </div>
+                                    </nav>
+                                 {%endfor%}
+                            
+                            <h3>Account Balance : ${{user.balance}}</h3>
+                            </div>
+                            <a href="{{url_for('viewAccounts')}}" class="btn btn-success text-center d-inline" >View Accounts</a>
+                        </div>
+                        <div class="form-group">
+                            <label>Receiver:</label>
+                            <input type="hidden" class="form-control" name="sender" name="sender" value="{{username}}" />
+                            
+                            <input type="text" class="form-control" name="receiver" required="1" />
+                        </div>
+                        <div class="form-group">
+                            <label>Amount USD:</label>
+                            <input type="number" class="form-control" name="amount" required="1" />
+                        </div>
+                        <div class="form-group text-center p-3">
+                            <button type="submit" class="btn btn-primary" >Send Money</button>
+                        </div>
+                    </form>
+                </div>
+    
+    
+  </body>
+  <script type="text/javascript" src="{{url_for('static', filename="js/jquery-3.7.1.slim.min.js")}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename="js/bootstrap.min.js")}}"></script>
+</html>
